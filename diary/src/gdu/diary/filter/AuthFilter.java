@@ -28,7 +28,7 @@ public class AuthFilter implements Filter {
 			httpResponse.sendRedirect(httpRequest.getContextPath()+"/login"); 
 			return; // 새로운 요청 발생으로 doFilter 메서드를 종료
 		}
-		chain.doFilter(request, response);
+		chain.doFilter(request, response); 
 	}
 
     public AuthFilter() {
