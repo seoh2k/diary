@@ -30,4 +30,20 @@ public class MemberDao {
 		}
 		return returnMember;
 	}
+	public Member insertMember(Connection conn, Member member) throws SQLException {
+		this.dbUtil = new DBUtil();
+		Member returnMember = null;
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(MemberQuery.INSERT_MEMBER);
+			stmt.setString(1, member.getMemberId());
+			stmt.setString(2, member.getMemberPw());
+			// 디버깅
+			System.out.println("insertMember stmt: "+stmt);
+			stmt.executeUpdate();
+		} finally {
+			dbUtil.close(null, stmt, conn);
+		}
+		return returnMember;
+	}
 }

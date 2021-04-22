@@ -36,4 +36,27 @@ public class MemberService {
 		
 		return returnMember;
 	}
+	
+	public Member addMember(Member member) {
+		this.dbUtil = new DBUtil();
+		Member returnMember = null;
+		this.memberDao = new MemberDao();
+		Connection conn = null; // Dao에서 빼고 여기서 선언
+		try {
+			conn = dbUtil.getConnection();
+			returnMember = this.memberDao.insertMember(conn, member);
+			conn.commit();
+		} catch(SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			this.dbUtil.close(null, null, conn);
+		}
+		
+		return returnMember;
+	}
 }
