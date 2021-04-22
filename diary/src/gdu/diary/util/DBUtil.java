@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBUtil {
+public class DBUtil { 
 	// 1. DB 연결
 	public Connection getConnection() {
 		Connection conn = null;
