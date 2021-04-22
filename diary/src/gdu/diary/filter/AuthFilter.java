@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
 public class AuthFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// 로그인 했는지 안 했는지 확인하는 코드 안 적어도 된다.
-		// 로그인 되어있지 않은 상태에서 "Auth/"문자로 시작하는 요청이 들어오면 redirect
+		// 로그인 되어있지 않은 상태에서 "auth/"문자로 시작하는 요청이 들어오면 redirect
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		HttpSession session = httpRequest.getSession(); // 형변환
 	
-		if(session.getAttribute("SessionMember") == null) {
+		if(session.getAttribute("sessionMember") == null) {
 			// 자식타입으로 형변환
 			HttpServletResponse httpResponse = (HttpServletResponse)response; 
 			// 주소창에 http://localhost/diary/auth/~ 검색하면 필터되어 login.jsp로 이동
