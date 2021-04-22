@@ -12,7 +12,8 @@ public class DBUtil {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/diary","root","java1004");
-			conn.setAutoCommit(false);
+			conn.setAutoCommit(false); 
+			// setAutoCommit(false): 여러개의 쿼리 문장이 하나의 작업으로 수행되어야 할 경우 각각의 문장이 작동되지 못하게 한다.
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 

@@ -18,7 +18,7 @@ public class MemberService {
 		this.dbUtil = new DBUtil();
 		Member returnMember = null;
 		this.memberDao = new MemberDao();
-		Connection conn = null;
+		Connection conn = null; // Dao에서 빼고 여기서 선언
 		try {
 			conn = dbUtil.getConnection();
 			returnMember = this.memberDao.selectMemberByKey(conn, member);
