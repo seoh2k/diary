@@ -6,38 +6,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import gdu.diary.dao.MemberDao;
 import gdu.diary.service.MemberService;
 import gdu.diary.vo.Member;
 
-@WebServlet("/InsertMemberController")
-public class InsertMemberController extends HttpServlet {
+@WebServlet("/auth/modifyMember")
+public class modifyMemberController extends HttpServlet {
 	private MemberService memberService;
+	// 회원정보 수정 폼
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/auth/modifyMember.jsp").forward(request, response);
 	}
-
+	// 수정 액션
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.memberService = new MemberService();
 		
-		// 입력 form에서 받은 memberId, memberPw 수집
+		// 입력 폼에서 받은 memberPw 수집
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
-		// 디버깅
-		System.out.println("memberId: "+ memberId);
-		System.out.println("memberPw: "+ memberPw);
+		System.out.println("memberPw : " + memberPw); // 디버깅
 		
-		// 전처리: member vo 객체에 저장
+		// 전처리: 멤버 vo 객체에 저장
 		Member member = new Member();
 		member.setMemberId(memberId);
-		member.setMemberPw(memberPw);
+		member.setMemberPw(memberPw); // 입력한 패스워드 추가
 		
-		// Service에서 insert 메서드 호출
-		Member returnMember = this.memberService.addMember(member);
+		// servic에서 modify메서드 호출
+		this.memberService.modifyMemberPw(member);
 		
-		// redirect
-		response.sendRedirect(request.getContextPath()+"/login");
+		// 재요청
+		response.sendRedirect(request.getContextPath()+"/auth/logout");
 	}
 
 }

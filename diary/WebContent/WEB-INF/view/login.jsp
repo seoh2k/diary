@@ -16,17 +16,22 @@
 				<div><input type="text" name="memberId" value="goodee@gdu.co.kr"></div>
 				<div>PW: </div>
 				<div><input type="password" name="memberPw" value="1234"></div>
-				<div><button type="submit">로그인</button></div>
+				<div>
+					<button type="submit">로그인</button>
+					<a href="${pageContext.request.contextPath}/addMember">회원가입</a>
+				</div>
 			</div>
 		</form>
-		<a href="${pageContext.request.contextPath}/InsertMemberController">회원가입</a>
 	</c:if>
 	<!-- 로그인 후 -->
 	<c:if test="${sessionMember != null}">
 		<div>${sessionMember.memberId} 님 반갑습니다.</div>
-		<div><a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a></div>
-		<a href="${pageContext.request.contextPath}/UpdateMemberPwController">회원정보 수정</a>
-		<div><a href="/auth/">다이어리</a></div>
+		<div>
+			<a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/auth/modifyMember">회원정보수정</a>
+			<a href="${pageContext.request.contextPath}/auth/removeMember">회원탈퇴</a>
+		</div>
+		<div><a href="${pageContext.request.contextPath}/auth/diary">다이어리</a></div>
 	</c:if>
 </body>
 </html>
