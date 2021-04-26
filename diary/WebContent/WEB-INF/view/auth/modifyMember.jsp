@@ -9,7 +9,9 @@
 <body>
 	<h1>modifyMember</h1>
 	<form method="post" action="${pageContext.request.contextPath}/auth/modifyMember">
+		<div><input type="hidden" name="memberId" value="${member.memberId}"></div>
 		<div>
+			memberPW: 
 			<input type="password" name="memberPw">
 		</div>
 		<div>

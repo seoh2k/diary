@@ -12,13 +12,20 @@ import gdu.diary.service.MemberService;
 import gdu.diary.vo.Member;
 
 @WebServlet("/auth/modifyMember")
-public class modifyMemberController extends HttpServlet {
+public class ModifyMemberController extends HttpServlet {
 	private MemberService memberService;
 	// 회원정보 수정 폼
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//세션값 가져오기
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("sessionMember");
+
+		//forward
+		request.setAttribute("member", member);
 		request.getRequestDispatcher("/WEB-INF/view/auth/modifyMember.jsp").forward(request, response);
 	}
+	
 	// 수정 액션
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,7 +34,6 @@ public class modifyMemberController extends HttpServlet {
 		// 입력 폼에서 받은 memberPw 수집
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
-		System.out.println("memberPw : " + memberPw); // 디버깅
 		
 		// 전처리: 멤버 vo 객체에 저장
 		Member member = new Member();

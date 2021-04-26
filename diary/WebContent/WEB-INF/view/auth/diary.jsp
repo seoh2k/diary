@@ -7,6 +7,8 @@
 <title>diary</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/login">Home</a>
+	
 	<c:set var="totalCell" value="${diaryMap.startBlank + diaryMap.endDay + diaryMap.endBlank}"></c:set>
 	<div>totalCell: ${totalCell}</div>
 		

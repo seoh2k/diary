@@ -20,7 +20,6 @@ public class MemberService {
 	// 회원정보 수정
 	public void modifyMemberPw(Member member) {
 		this.dbUtil = new DBUtil();
-		Member returnMember = null;
 		this.memberDao = new MemberDao();
 		Connection conn = null; // Dao에서 빼고 여기서 선언
 		try {
