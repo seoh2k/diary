@@ -9,11 +9,8 @@ import gdu.diary.util.DBUtil;
 import gdu.diary.vo.Member;
 
 public class MemberDao {
-	private DBUtil dbUtil;
-	
 	// 회원정보 수정 
 	public void updateMemberPw(Connection conn, Member member) throws SQLException {
-		this.dbUtil = new DBUtil();
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(MemberQuery.UPDATE_MEMBER_PW);
@@ -23,12 +20,11 @@ public class MemberDao {
 			System.out.println("updateMemberPw "+stmt);
 			stmt.executeUpdate();
 		} finally {
-			dbUtil.close(null, stmt, null);
+			stmt.close();
 		}
 	}
 	
 	public int deleteMemberByKey(Connection conn, Member member) throws SQLException {
-		this.dbUtil = new DBUtil();
 		int rowCnt = 0;
 		PreparedStatement stmt = null;
 		try {
@@ -37,13 +33,12 @@ public class MemberDao {
 			stmt.setString(2, member.getMemberPw());
 			rowCnt = stmt.executeUpdate();
 		} finally {
-			dbUtil.close(null, stmt, null);
+			stmt.close();
 		}
 		return rowCnt;
 	}
 	
 	public Member selectMemberByKey(Connection conn, Member member) throws SQLException { //Connection 무조건 매개변수로 받아야된다
-		this.dbUtil = new DBUtil();
 		Member returnMember = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -58,14 +53,14 @@ public class MemberDao {
 				returnMember.setMemberId(rs.getString("memberId"));
 			}
 		} finally {
-			dbUtil.close(rs, stmt, null);
+			rs.close();
+			stmt.close();
 		}
 		return returnMember;
 	}
 	
 	// 회원가입 
 	public Member insertMember(Connection conn, Member member) throws SQLException {
-		this.dbUtil = new DBUtil();
 		Member returnMember = null;
 		PreparedStatement stmt = null;
 		try {
@@ -76,7 +71,7 @@ public class MemberDao {
 			System.out.println("insertMember "+stmt);
 			stmt.executeUpdate();
 		} finally {
-			dbUtil.close(null, stmt, null);
+			stmt.close();
 		}
 		return returnMember;
 	}

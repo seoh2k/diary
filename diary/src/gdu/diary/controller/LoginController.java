@@ -12,6 +12,7 @@ import gdu.diary.service.MemberService;
 import gdu.diary.vo.Member;
 
 @WebServlet("/login")
+
 public class LoginController extends HttpServlet {
 	private MemberService memberService;
 	// 로그인 폼
