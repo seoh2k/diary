@@ -70,13 +70,21 @@ public class DiaryService {
 		map.put("endBlank", endBlank);
 		
 		// 2. targetYear, targetMonth(0이면 1월, 1이면 2월)에 해당하는 todo목록 가져와서 추가
+		// 3. dday 목록 가져와서 추가
 		this.dbUtil = new DBUtil();
 		this.todoDao = new TodoDao();
+		
 		List<Todo> todoList = null;
+		
+		// dday 코드 추가
+		List<Map<String, Object>> ddayList = null;
+		
 		Connection conn = null;
 		try {
 			conn = dbUtil.getConnection();
 			todoList = this.todoDao.selectTodoListByDate(conn, memberNo, target.get(Calendar.YEAR), target.get(Calendar.MONTH)+1);
+			// dday 코드 추가
+			ddayList = this.todoDao.selectTodoDdayList(conn, memberNo);
 			conn.commit();
 		} catch (SQLException e) {
 			try {
@@ -93,6 +101,8 @@ public class DiaryService {
 			}
 		}
 		map.put("todoList", todoList);
+		// dday 코드 추가
+		map.put("ddayList", ddayList);
 		return map;
 	}
 }
